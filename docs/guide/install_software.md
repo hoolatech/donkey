@@ -17,7 +17,7 @@ The method for using a disk image to create a bootable SD card varies between
 operating systems. These instructions are for Ubuntu but you can see more 
 instructions [here](https://www.raspberrypi.org/documentation/installation/installing-images/).
 
-1. Download [zipped disk image](https://www.dropbox.com/s/wiudnm2dcsvoquu/donkey_v22.img.zip?dl=0) (1.1GB). 
+1. Download prebuilt [zipped disk image](https://www.dropbox.com/s/wiudnm2dcsvoquu/donkey_v22.img.zip?dl=0) (1.1GB). 
 2. Unzip the disk image.
 3. Plug your SD card into your computer.
 4. Open the "Startup Disk Creator" application.
@@ -56,7 +56,7 @@ If it bothers you to leave your password unencrypted, you may change the [conten
 We can also setup the hostname so that your Pi easier to find once on the network. If yours is the only Pi on the network, then you can find it with 
 
 ```
-ping raspberrypi.local
+ping d2.local
 ```
 
 once it's booted. If there are many other Pi's on the network, then this will have problems. If you are on a Linux machine, or are able to edit the UUID partition, then you can edit the `/etc/hostname` and `/etc/hosts` files now to make finding your pi on the network easier after boot. Edit those to replace `raspberrypi` with a name of your choosing. Use all lower case, no special characters, no hyphens, yes underscores `_`. 
@@ -81,8 +81,8 @@ The easiest way (on Ubuntu) is to use the `findcar` donkey command. You can try 
 If you are having troubles locating your Pi on the network, you will want to plug in an HDMI monitor and USB keyboard into the Pi. Boot it. Login with:
 
 * Username: __pi__
-* Password: __raspberry__
-  * The new disk image has the password `asdfasdf`
+* Password: __asdfasdf__
+  * The older disk images use the password `raspberry`
  
 Then try the command:
 
@@ -99,7 +99,7 @@ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 If you don't have a HDMI monitor and keyboard, you can plug-in the Pi with a CAT5 cable to a router with DHCP. If that router is on the same network as your PC, you can try:
 
 ```
-ping raspberrypi.local
+ping d2.local
 ```
 
 Hopefully, one of those methods worked and you are now ready to SSH into your Pi. On Mac and Linux, you can open Terminal. On Windows you can install [Putty](http://www.putty.org/) or [one of the alternatives](https://www.htpcbeginner.com/best-ssh-clients-windows-putty-alternatives/2/).
@@ -107,7 +107,7 @@ Hopefully, one of those methods worked and you are now ready to SSH into your Pi
 If you have a command prompt, you can try:
 
 ```
-ssh pi@raspberrypi.local
+ssh pi@d2.local
 ```
 
 or
@@ -118,8 +118,9 @@ ssh pi@<your pi ip address>
 
 or via Putty:
 * Username: __pi__
-* Password: __raspberry__
-  * __asdfasdf__ on the prebuilt image
+* Password: __asdfasdf__
+  * __asdfasdf__ on the current v22 prebuilt image linked above.
+  * __raspberry__ on older images/manual installs
 * Hostname:`<your pi IP address>`
 
 
@@ -144,7 +145,8 @@ pip install -e .
 ```
 
 ----
-Now let's setup things on your PC. Install varies depending on platform.
+Now let's setup the same donkey library on your laptop or server so you can test and train autopilots. Install varies 
+depending on platform.
 
 
 ## Install donkeycar on Linux
@@ -158,11 +160,13 @@ pip install keras==2.0.6
 pip install tensorflow==1.3.0
 ```
 
-Install donkeycar
+* Install donkey source and create your local working dir:
 ```bash
 git clone https://github.com/wroscoe/donkey donkeycar
 pip install -e donkeycar
 ```
+
+[Next: Calibrate your car.](./calibrate.md)
 
 ----
 
@@ -202,9 +206,13 @@ pip install -e .
 donkey createcar --path ~/d2
 ```
 
+
+
 > Note: After closing the Anaconda Prompt, when you open it again, you will need to 
 > type ```activate donkey``` to re-enable the mappings to donkey specific 
 > Python libraries
+
+[Next: Calibrate your car.](./calibrate.md)
 
 ----
 
@@ -250,6 +258,8 @@ pip install https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.3.0-p
 pip install -e .
 donkey createcar --path ~/d2
 ```
+
+[Next: Calibrate your car.](./calibrate.md)
 
 > Note: After closing the Terminal, when you open it again, you will need to 
 > type ```source activate donkey``` to re-enable the mappings to donkey specific 
