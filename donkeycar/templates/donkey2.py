@@ -75,6 +75,9 @@ def drive(cfg, model_path=None, use_joystick=False):
     if (hasattr(cfg, 'ENGINE') and cfg.ENGINE == "mxnet"):
         import donkeycar.parts.mxnetpart as mxp
         kl = mxp.MxnetLinear()
+    elif (hasattr(cfg, 'ENGINE') and cfg.ENGINE == "custom"):
+        import donkeycar.parts.custompart as cp
+        kl = cp.get_my_pilot() #Get custom pilot
     else:
         kl = KerasCategorical()
 
